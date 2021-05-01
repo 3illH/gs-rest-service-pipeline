@@ -60,6 +60,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Package with Maven
+        run: mvn -B package -Dmaven.test.skip=true --file pom.xml
+
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
