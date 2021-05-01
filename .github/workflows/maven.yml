@@ -40,37 +40,7 @@ jobs:
       run: mvn -B package -Dmaven.test.skip=true --file pom.xml
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-  
-  analyze:
-    name: Analyze
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ $detected-codeql-languages ]
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
-      with:
-        languages: ${{ matrix.language }}
-
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
-  
+    
   push:
     # Ensure test job passes before pushing image.
     needs: test
@@ -84,9 +54,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
