@@ -25,6 +25,8 @@ jobs:
       run: mvn -B compile --file pom.xml
 
   test:
+    needs: build
+
     runs-on: ubuntu-latest
     
     steps:
@@ -39,7 +41,7 @@ jobs:
     - name: Package with Maven
       run: mvn -B package -Dmaven.test.skip=true --file pom.xml
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile
     
   push:
     # Ensure test job passes before pushing image.
@@ -54,6 +56,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
