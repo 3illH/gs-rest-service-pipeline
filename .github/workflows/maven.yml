@@ -25,3 +25,7 @@ jobs:
       run: mvn -B compile --file pom.xml
     - name: Test with Maven
       run: mvn -B test --file pom.xml
+    - name: Package with Maven
+      run: mvn -B package -Dmaven.test.skip=true --file pom.xml
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
