@@ -20,14 +20,25 @@ pipeline {
         }
       }
     }
-    stage('Trivy Scan Docker image') {
+    stage('Test') {
       steps {
-        container('trivy') {
+        container('maven') {
           script {
-            sh "trivy image maven:alpine"
+            sh "mvn clean check"
+            sh "mvn clean test"
           }
         }
       }
+
     }
+    // stage('Trivy Scan Docker image') {
+    //   steps {
+    //     container('trivy') {
+    //       script {
+    //         sh "trivy image maven:alpine"
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
