@@ -24,8 +24,7 @@ pipeline {
       steps {
         container('maven') {
           script {
-            sh "mvn clean check"
-            sh "mvn clean test"
+            sh "mvn clean verify"
           }
         }
       }
