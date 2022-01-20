@@ -28,7 +28,11 @@ pipeline {
           }
         }
       }
-
+    }
+    stage('Build with Kaniko') {
+      container('kaniko') {
+        sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=gs-rest-service'
+      }
     }
     // stage('Trivy Scan Docker image') {
     //   steps {
