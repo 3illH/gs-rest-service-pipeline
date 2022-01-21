@@ -32,7 +32,7 @@ pipeline {
     stage('Build with Kaniko') {
       steps {
         container('kaniko') {
-          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --no-push --tarPath gs-rest-service.tar --cache-repo=registry-docker-registry:5000/3ill/cache --destination=3ill/gs-rest-service --force' 
+          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=3ill/gs-rest-service --force' 
         }
       }
     }
@@ -40,15 +40,8 @@ pipeline {
       steps {
         container('trivy') {
           script {
-            sh "trivy image --input gs-rest-service.tar"
+            sh "trivy image 3ill/gs-rest-service"
           }
-        }
-      }
-    }
-    stage('Push with Kaniko') {
-      steps {
-        container('kaniko') {
-          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=3ill/gs-rest-service --force' 
         }
       }
     }
