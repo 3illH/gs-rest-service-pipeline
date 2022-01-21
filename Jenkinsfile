@@ -32,7 +32,7 @@ pipeline {
     stage('Build with Kaniko') {
       steps {
         container('kaniko') {
-          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=gs-rest-service --force' 
+          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=3ill/gs-rest-service --force' 
         }
       }
     }

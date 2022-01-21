@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Pod
 spec:
-#   volumes:
-#   - name: jenkins-docker-cfg
-#     projected:
-#       sources:
-#       - secret:
-#          name: regcred
-#          items:
-#          - key: .dockerconfigjson
-#            path: config.json
+  volumes:
+  - name: jenkins-docker-cfg
+    projected:
+      sources:
+      - secret:
+         name: regcred
+         items:
+         - key: .dockerconfigjson
+           path: config.json
   containers:
   - name: maven
     image: maven:3.8.4-openjdk-11
@@ -46,6 +46,6 @@ spec:
       requests:
          cpu: 150m
          memory: 300Mi
-   #  volumeMounts:
-   #    - name: jenkins-docker-cfg
-   #      mountPath: /kaniko/.docker
+    volumeMounts:
+      - name: jenkins-docker-cfg
+        mountPath: /kaniko/.docker
