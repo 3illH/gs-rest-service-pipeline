@@ -32,18 +32,25 @@ pipeline {
     stage('Build with Kaniko') {
       steps {
         container('kaniko') {
+          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --no-push --destination=3ill/gs-rest-service --force' 
+        }
+      }
+    }
+    stage('Trivy Scan Container image') {
+      steps {
+        container('trivy') {
+          script {
+            sh "trivy image maven:alpine"
+          }
+        }
+      }
+    }
+    stage('Push with Kaniko') {
+      steps {
+        container('kaniko') {
           sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=3ill/gs-rest-service --force' 
         }
       }
     }
-    // stage('Trivy Scan Docker image') {
-    //   steps {
-    //     container('trivy') {
-    //       script {
-    //         sh "trivy image maven:alpine"
-    //       }
-    //     }
-    //   }
-    // }
   }
 }
