@@ -1,0 +1,8 @@
+# kustomization.yaml contents
+resources:
+- deployment.yaml
+- service.yaml
+
+namespace: dev
+
+namePrefix: dev-gs-rest-service

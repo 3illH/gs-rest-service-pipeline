@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gs-rest-service
+  name: gs-rest-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gs-rest-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: gs-rest-service
+    spec:
+      containers:
+      - image: 3ill/gs-rest-service
+        name: gs-rest-service
+        resources:
+          limits:
+            cpu: 200m
+            memory: 128Mi
+              
+status: {}
