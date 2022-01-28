@@ -47,8 +47,8 @@ pipeline {
     }
     stage('Deploy with ArgoCd') {
       steps {
-        script {
-          sh "kubectl apply -f ./argo/argo-application.yaml -n argocd"
+        withKubeConfig ([credentialsId: 'credentialsId']) {
+          sh "kubectl apply -f ./argo/argo-application.yaml -n argoc"
         }
       }
     }
