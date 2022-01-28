@@ -49,7 +49,7 @@ pipeline {
       steps {
         container('kubectl'){
           withKubeConfig ([credentialsId: 'credentialsId']) {
-            sh "kubectl apply -f ./argo/argo-application.yaml -n argoc"
+            sh "kubectl apply -f ./argo/argo-application.yaml -n argocd"
           }
         }
       }
