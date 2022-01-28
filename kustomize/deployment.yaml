@@ -18,9 +18,12 @@ spec:
       containers:
       - image: 3ill/gs-rest-service
         name: gs-rest-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
         resources:
           limits:
             cpu: 200m
-            memory: 128Mi
+            memory: 200Mi
               
 status: {}
