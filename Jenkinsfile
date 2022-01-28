@@ -45,5 +45,12 @@ pipeline {
         }
       }
     }
+    stage('Deploy with ArgoCd') {
+      steps {
+        script {
+          sh "kubectl apply -f ./argo/argo-application.yaml -n argocd"
+        }
+      }
+    }
   }
 }
