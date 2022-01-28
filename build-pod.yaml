@@ -49,3 +49,15 @@ spec:
     volumeMounts:
       - name: jenkins-docker-cfg
         mountPath: /kaniko/.docker
+  - name: kubectl
+    image: gcr.io/cloud-builders/kubectl
+    command:
+    - cat
+    tty: true
+    resources:
+      limits:
+         cpu: 350m
+         memory: 600Mi
+      requests:
+         cpu: 150m
+         memory: 300Mi
