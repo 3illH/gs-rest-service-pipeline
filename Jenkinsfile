@@ -49,8 +49,10 @@ pipeline {
       steps {
         container('kubectl'){
           withKubeConfig ([credentialsId: 'minikube-kubeconfig']) {
-            sh "kubectl create ns argocd"
-            sh "kubectl apply -f ./argo/argo-application.yaml -n argocd"
+            sh "curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64"
+            sh "chmod +x /usr/local/bin/argocd"
+            sh "argocd login 10.100.148.208"
+            // sh "kubectl apply -f ./argo/argo-application.yaml -n argocd"
           }
         }
       }
