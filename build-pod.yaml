@@ -49,8 +49,8 @@ spec:
     volumeMounts:
       - name: jenkins-docker-cfg
         mountPath: /kaniko/.docker
-  - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
+  - name: argocd
+    image: argoproj/argocd
     command:
     - cat
     tty: true
