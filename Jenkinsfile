@@ -48,7 +48,7 @@ pipeline {
     stage('Deploy with ArgoCd') {
       steps {
         container('kubectl'){
-          withKubeConfig ([jenkinsrobotcredentialid: 'jenkinsrobotcredentialid']) {
+          withKubeConfig ([credentialsId: 'jenkinsrobotcredentialid']) {
             sh "kubectl apply -f ./argo/argo-application.yaml -n argocd"
           }
         }
