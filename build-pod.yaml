@@ -51,8 +51,7 @@ spec:
         mountPath: /kaniko/.docker
   - name: argocd
     image: argoproj/argocd
-    command:
-    - cat
+    command: ['sleep', '60m']
     tty: true
     resources:
       limits:
