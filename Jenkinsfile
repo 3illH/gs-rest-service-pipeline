@@ -49,8 +49,8 @@ pipeline {
       steps {
         container('argocd'){
           withCredentials([usernamePassword(credentialsId: 'argocd', passwordVariable: 'argopassword', usernameVariable: 'argousername')]) {
-            // sh "curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64"
-            // sh "chmod +x /usr/local/bin/argocd"
+            sh "curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64"
+            sh "chmod +x /usr/local/bin/argocd"
             sh "argocd login 10.100.148.208 --insecure --username=$argousername --password=$argopassword"
             sh "argocd app create -f ./argo/argo-application.yaml"
           }

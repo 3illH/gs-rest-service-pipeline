@@ -50,7 +50,7 @@ spec:
       - name: jenkins-docker-cfg
         mountPath: /kaniko/.docker
   - name: argocd
-    image: argoproj/argocd
+    image: alpine:3.15.0
     command: ['sleep', '60m']
     tty: true
     resources:
