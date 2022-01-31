@@ -49,6 +49,7 @@ pipeline {
       steps {
         container('kubectl'){
           withKubeConfig ([credentialsId: 'minikube-kubeconfig']) {
+            sh "kubectl create ns argocd"
             sh "kubectl apply -f ./argo/argo-application.yaml -n argocd"
           }
         }
