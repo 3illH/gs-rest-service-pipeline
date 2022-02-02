@@ -5,6 +5,9 @@ pipeline {
     }
 
   }
+  environment {
+    MAVEN_OPTS = "-Dmaven.repo.local=/m2"
+  }
   stages {
     stage('Checkout SMC') {
       steps {
@@ -15,7 +18,7 @@ pipeline {
       steps {
         container('maven') {
           script {
-            sh "mvn clean package -DskipTests -Dmaven.repo.local=/m2"
+            sh "mvn clean package -DskipTests"
           }
         }
       }
