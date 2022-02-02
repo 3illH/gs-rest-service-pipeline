@@ -27,7 +27,7 @@ spec:
          memory: 300Mi
     volumeMounts:
       - mountPath: "/m2"
-        name: task-pv-storage
+        name: jenkins-m2-pv
   - name: trivy
     image: aquasec/trivy:0.22.0
     command: ['sleep', '60m']
