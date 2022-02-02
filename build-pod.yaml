@@ -10,6 +10,9 @@ spec:
          items:
          - key: .dockerconfigjson
            path: config.json
+  - name: jenkins-m2-pv
+    persistentVolumeClaim:
+      claimName: jenkins-m2-pv-claim
   containers:
   - name: maven
     image: maven:3.8.4-openjdk-11
@@ -22,6 +25,9 @@ spec:
       requests:
          cpu: 150m
          memory: 300Mi
+    volumeMounts:
+      - mountPath: "/m2"
+        name: task-pv-storage
   - name: trivy
     image: aquasec/trivy:0.22.0
     command: ['sleep', '60m']
