@@ -44,6 +44,7 @@ pipeline {
           }
         }
       }
+      recordIssues tool: trivy()
     }
     stage('Deploy with ArgoCd') {
       steps {
