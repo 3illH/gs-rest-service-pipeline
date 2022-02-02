@@ -58,7 +58,7 @@ pipeline {
   }
   post {
     always {
-      recordIssues enabledForFailure: true, tool: trivy()
+      recordIssues enabledForFailure: true, tool: trivy(pattern: 'rivy-results.json')
     }
   }
 }
