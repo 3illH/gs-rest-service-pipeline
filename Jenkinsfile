@@ -40,7 +40,7 @@ pipeline {
       steps {
         container('trivy') {
           script {
-            sh "trivy image 3ill/gs-rest-service"
+            sh "trivy image -f json -o trivy-results.json 3ill/gs-rest-service"
           }
         }
       }
