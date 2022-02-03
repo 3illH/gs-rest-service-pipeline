@@ -58,7 +58,7 @@ pipeline {
   //       }
   //     }
   //   }
-  // }
+   }
   // post {
   //   always {
   //     recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
