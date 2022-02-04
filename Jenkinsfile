@@ -28,6 +28,7 @@ pipeline {
         container('maven') {
           script {
             sh "mvn clean verify"
+            dependencyCheck additionalArguments: '''--project gs-rest-service --scan src''', odcInstallation: 'Dependency-Check'
           }
         }
       }
