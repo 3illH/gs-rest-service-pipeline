@@ -21,10 +21,10 @@ spec:
     resources:
       limits:
          cpu: 350m
-         memory: 4GiB
+         memory: 4Gi
       requests:
          cpu: 150m
-         memory: 4GiB
+         memory: 4Gi
     volumeMounts:
       - mountPath: "/m2"
         name: jenkins-m2-pv
