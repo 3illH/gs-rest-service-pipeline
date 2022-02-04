@@ -39,6 +39,9 @@
               <groupId>org.owasp</groupId>
               <artifactId>dependency-check-maven</artifactId>
               <version>6.5.3</version>
+			  <configuration>
+			  	<cveValidForHours>-1</cveValidForHours>
+			  </configuration>
               <executions>
                   <execution>
                       <goals>
