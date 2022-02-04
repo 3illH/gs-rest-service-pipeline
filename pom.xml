@@ -41,7 +41,7 @@
               <version>6.5.3</version>
 			  <configuration>
 			  	<cveValidForHours>-1</cveValidForHours>
-				<format>xml</format>
+				<format>json</format>
 			  </configuration>
               <executions>
                   <execution>
