@@ -28,6 +28,7 @@ pipeline {
         container('maven') {
           script {
             sh "mvn clean verify"
+            sh "cp target/dependency-check-report.json ../"
             //dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
           }
         }
