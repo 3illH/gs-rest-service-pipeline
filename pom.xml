@@ -35,7 +35,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-            <!-- <plugin>
+            <plugin>
               <groupId>org.owasp</groupId>
               <artifactId>dependency-check-maven</artifactId>
               <version>6.5.3</version>
@@ -45,11 +45,11 @@
               <executions>
                   <execution>
                       <goals>
-                          <goal>check</goal>
+                          <goal>update-only</goal>
                       </goals>
                   </execution>
               </executions>
-            </plugin> -->
+            </plugin>
 		</plugins>
 	</build>
 
