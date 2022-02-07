@@ -28,7 +28,7 @@ pipeline {
         container('maven') {
           script {
             sh "mvn clean verify"
-            //dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+            dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
           }
         }
       }
@@ -63,7 +63,7 @@ pipeline {
   post {
     always {
       //recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
-      recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
+      //recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
     }
   }
 }
