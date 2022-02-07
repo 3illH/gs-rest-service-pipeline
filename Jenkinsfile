@@ -33,36 +33,36 @@ pipeline {
         }
       }
     }
-  //   stage('Build with Kaniko') {
-  //     steps {
-  //       container('kaniko') {
-  //         sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=3ill/gs-rest-service --force' 
-  //       }
-  //     }
-  //   }
-  //   stage('Trivy Scan Container image') {
-  //     steps {
-  //       container('trivy') {
-  //         script {
-  //           sh "trivy image -f json -o trivy-results.json 3ill/gs-rest-service"
-  //         }
-  //       }
-  //     }
-  //   }
-  //   stage('Deploy with ArgoCd') {
-  //     steps {
-  //       container('argocd'){
-  //         withCredentials([usernamePassword(credentialsId: 'argocd', passwordVariable: 'argopassword', usernameVariable: 'argousername')]) {
-  //           sh "argocd login 10.100.148.208 --insecure --username=$argousername --password=$argopassword"
-  //           sh "argocd app create -f ./argo/argo-application.yaml"
-  //         }
-  //       }
-  //     }
-  //   }
+    stage('Build with Kaniko') {
+      steps {
+        container('kaniko') {
+          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=3ill/gs-rest-service --force' 
+        }
+      }
+    }
+    stage('Trivy Scan Container image') {
+      steps {
+        container('trivy') {
+          script {
+            sh "trivy image -f json -o trivy-results.json 3ill/gs-rest-service"
+          }
+        }
+      }
+    }
+    stage('Deploy with ArgoCd') {
+      steps {
+        container('argocd'){
+          withCredentials([usernamePassword(credentialsId: 'argocd', passwordVariable: 'argopassword', usernameVariable: 'argousername')]) {
+            sh "argocd login 10.100.148.208 --insecure --username=$argousername --password=$argopassword"
+            sh "argocd app create -f ./argo/argo-application.yaml"
+          }
+        }
+      }
+    }
    }
   post {
     always {
-      //recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
+      recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
       //recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
     }
   }
