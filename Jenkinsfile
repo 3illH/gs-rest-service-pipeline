@@ -54,7 +54,9 @@ pipeline {
         container('argocd'){
           withCredentials([usernamePassword(credentialsId: 'argocd', passwordVariable: 'argopassword', usernameVariable: 'argousername')]) {
             sh "argocd login 10.100.148.208 --insecure --username=$argousername --password=$argopassword"
-            sh "argocd app create -f ./argo/argo-application.yaml"
+            sh "argocd app create -f ./argo/argo-application.yaml --kustomize-image 3ill/gs-rest-service --upsert"
+            sh "argocd app sync gs-rest-service --force"
+            sh "argocd app wait gs-rest-service --timeout 600"
           }
         }
       }
