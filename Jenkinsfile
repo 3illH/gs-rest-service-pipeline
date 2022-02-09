@@ -37,8 +37,10 @@ pipeline {
     stage('Build with Docker') {
       steps {
         container('docker') {
-          dockerImageName = "3ill/gs-rest-service:${pom.version}"
-          dockerImage = docker.build("${dockerImageName}", ".")
+          script{
+            dockerImageName = "3ill/gs-rest-service:${pom.version}"
+            dockerImage = docker.build("${dockerImageName}", ".")
+          }
         }
       }
     }
