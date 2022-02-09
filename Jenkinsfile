@@ -48,7 +48,7 @@ pipeline {
       steps {
         container('trivy') {
           script {
-            sh "trivy image -f json -o trivy-results.json ${dockerImage}"
+            sh "trivy image -f json -o trivy-results.json ${dockerImageName}"
           }
         }
       }
