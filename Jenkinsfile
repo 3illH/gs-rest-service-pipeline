@@ -18,6 +18,7 @@ pipeline {
       steps {
         container('maven') {
           script {
+            pom = readMavenPom file: "pom.xml";
             sh "mvn clean package -DskipTests"
           }
         }
@@ -33,10 +34,11 @@ pipeline {
         }
       }
     }
-    stage('Build with Kaniko') {
+    stage('Build with Docker') {
       steps {
-        container('kaniko') {
-          sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=3ill/gs-rest-service --force' 
+        container('docker') {
+          dockerImageName = "3ill/gs-rest-service:${pom.version}"
+          dockerImage = docker.build("${dockerImageName}", ".")
         }
       }
     }
@@ -44,7 +46,7 @@ pipeline {
       steps {
         container('trivy') {
           script {
-            sh "trivy image -f json -o trivy-results.json 3ill/gs-rest-service"
+            sh "trivy image -f json -o trivy-results.json ${dockerImage}"
           }
         }
       }

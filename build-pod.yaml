@@ -13,6 +13,8 @@ spec:
   - name: jenkins-m2-pv
     persistentVolumeClaim:
       claimName: jenkins-m2-pv-claim
+  - name: docker-socket
+    emptyDir: {}
   containers:
   - name: maven
     image: maven:3.8.4-openjdk-11
@@ -39,22 +41,39 @@ spec:
       requests:
          cpu: 150m
          memory: 300Mi
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:v1.6.0-debug
-    imagePullPolicy: Always
+  - name: docker
+    image: docker:20.10.12
+    env:
+      - name: CONTAINER_ENV_VAR
+        value: docker
     command: ['sleep', '60m']
-    args:
-    - 99d
     resources:
       limits:
-         cpu: 350m
-         memory: 600Mi
+        cpu: 200m
+        memory: 128Mi
       requests:
-         cpu: 150m
-         memory: 300Mi
+        cpu: 150m
+        memory: 64Mi
     volumeMounts:
-      - name: jenkins-docker-cfg
-        mountPath: /kaniko/.docker
+    - name: docker-socket
+      mountPath: /var/run
+  - name: docker-daemon
+    image: docker:20.10.12-dind
+    env:
+      - name: CONTAINER_ENV_VAR
+        value: docker-daemon
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: docker-socket
+      mountPath: /var/run
   - name: argocd
     image: docker.io/3ill/argocd
     command: ['sleep', '60m']
