@@ -75,13 +75,14 @@ spec:
          cpu: 300m
          memory: 400Mi
   - name: trivy
-    image: aquasec/trivy:0.22.0
-    command: ['sleep', '60m']
+    image: aquasec/trivy:0.23.0
+    command:
+    - cat
     tty: true
     resources:
       limits:
-         cpu: 350m
-         memory: 600Mi
+        cpu: 350m
+        memory: 600Mi
       requests:
-         cpu: 150m
-         memory: 300Mi
+        cpu: 150m
+        memory: 300Mi
