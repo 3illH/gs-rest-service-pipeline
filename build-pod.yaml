@@ -30,17 +30,6 @@ spec:
     volumeMounts:
       - mountPath: "/m2"
         name: jenkins-m2-pv
-  - name: trivy
-    image: aquasec/trivy:0.22.0
-    command: ['sleep', '60m']
-    tty: true
-    resources:
-      limits:
-         cpu: 350m
-         memory: 600Mi
-      requests:
-         cpu: 150m
-         memory: 300Mi
   - name: docker
     image: docker:20.10.12
     env:
@@ -85,3 +74,14 @@ spec:
       requests:
          cpu: 300m
          memory: 400Mi
+  - name: trivy
+    image: aquasec/trivy:0.22.0
+    command: ['sleep', '60m']
+    tty: true
+    resources:
+      limits:
+         cpu: 350m
+         memory: 600Mi
+      requests:
+         cpu: 150m
+         memory: 300Mi
