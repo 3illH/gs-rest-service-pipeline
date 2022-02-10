@@ -81,8 +81,10 @@ pipeline {
   post {
     always {
       //recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
-      def report = scanForIssues tool: trivy(pattern: 'trivy-results.json')
-      report.getStatistics()
+      script{
+        def report = scanForIssues tool: trivy(pattern: 'trivy-results.json')
+        report.getStatistics()
+      }
       //recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
     }
   }
