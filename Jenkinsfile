@@ -7,6 +7,7 @@ pipeline {
   }
   environment {
     MAVEN_OPTS = "-Dmaven.repo.local=/m2"
+    DOCKERHUB_CREDENTIALS=credentials('dockerCredentials')
   }
   stages {
     stage('Checkout SMC') {
@@ -57,10 +58,7 @@ pipeline {
       steps {
         container('docker') {
           script{
-            withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'user', usernameVariable: 'pass')]) {
-              sh "docker login -u ${user} -p ${pass}"
-              dockerImage.push()
-            }
+            dockerImage.push()
           }
         }
       }
