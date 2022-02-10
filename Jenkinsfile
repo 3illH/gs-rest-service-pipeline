@@ -57,10 +57,9 @@ pipeline {
       steps {
         container('docker') {
           script{
-            withCredentials([usernameColonPassword(credentialsId: 'docker_credentials', variable: 'registryCredential')]) {
-              docker.withRegistry('https://index.docker.io/v1/', registryCredential ) { 
-                dockerImage.push()
-              }
+            withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'user', usernameVariable: 'pass')]) {
+              //sh "docker login -u ${user} -p ${pass}"
+              dockerImage.push()
             }
           }
         }
