@@ -58,7 +58,7 @@ pipeline {
         container('docker') {
           script{
             withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'user', usernameVariable: 'pass')]) {
-              //sh "docker login -u ${user} -p ${pass}"
+              sh "docker login -u ${user} -p ${pass}"
               dockerImage.push()
             }
           }
