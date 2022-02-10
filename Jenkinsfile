@@ -1,3 +1,4 @@
+def FAILED_STAGE
 pipeline {
   agent {
     kubernetes {
@@ -45,7 +46,7 @@ pipeline {
     //     }
     //   }
     // }
-    def FAILED_STAGE
+    
     stage('Trivy Scan Container image') {
       steps {
         FAILED_STAGE=env.STAGE_NAME
