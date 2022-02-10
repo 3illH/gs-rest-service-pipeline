@@ -81,9 +81,10 @@ pipeline {
   post {
     always {
       recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
-      script{
-      echo "${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL"}"
-      }
+
+        def total = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL"}'
+        echo total
+
       //recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
     }
   }
