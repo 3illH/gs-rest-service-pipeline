@@ -46,8 +46,6 @@ spec:
     volumeMounts:
     - name: docker-socket
       mountPath: /var/run
-    - name: jenkins-docker-cfg
-      mountPath: /var/run/.docker
   - name: docker-daemon
     image: docker:20.10.12-dind
     env:
