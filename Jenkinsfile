@@ -58,7 +58,9 @@ pipeline {
       steps {
         container('docker') {
           script{
-            dockerImage.push()
+            //dockerImage.push()
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            sh "docker push ${dockerImageName}"
           }
         }
       }
