@@ -81,7 +81,7 @@ pipeline {
   post {
     always {
       recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
-      echo ${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL"}
+      echo "${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL"}"
       //recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
     }
   }
