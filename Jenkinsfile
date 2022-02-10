@@ -38,8 +38,7 @@ pipeline {
       steps {
         container('docker') {
           script{
-            dockerImageName = "3ill/gs-rest-service:${pom.version}"
-            dockerImage = docker.build("${dockerImageName}", ".")
+            dockerImage.push()
           }
         }
       }
@@ -49,6 +48,16 @@ pipeline {
         container('trivy') {
           script {
             sh "trivy image -f json -o trivy-results.json ${dockerImageName}"
+          }
+        }
+      }
+    }
+    stage('Push with Docker') {
+      steps {
+        container('docker') {
+          script{
+            dockerImageName = "3ill/gs-rest-service:${pom.version}"
+            dockerImage = docker.build("${dockerImageName}", ".")
           }
         }
       }
