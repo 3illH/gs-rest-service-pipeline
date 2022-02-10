@@ -83,7 +83,7 @@ pipeline {
       //recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
       script{
         def report = scanForIssues tool: trivy(pattern: 'trivy-results.json')
-        report.getStatistics()
+        echo report.getStatistics()
       }
       //recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
     }
