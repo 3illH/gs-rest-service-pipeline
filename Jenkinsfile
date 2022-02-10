@@ -45,8 +45,10 @@ pipeline {
     //     }
     //   }
     // }
+    def FAILED_STAGE
     stage('Trivy Scan Container image') {
       steps {
+        FAILED_STAGE=env.STAGE_NAME
         container('trivy') {
           script {
             sh "trivy image -f json -o trivy-results.json 3ill/gs-rest-service:0.0.2-SNAPSHOT"
