@@ -37,8 +37,10 @@ pipeline {
     //   }
     // }
     stage('SonarQube Analysis') {
-      withSonarQubeEnv() {
-        sh "mvn clean verify sonar:sonar -Dsonar.projectKey=gs-rest-service"
+      steps {
+        withSonarQubeEnv() {
+          sh "mvn clean verify sonar:sonar -Dsonar.projectKey=gs-rest-service"
+        }
       }
     }
     // stage('Build with Docker') {
