@@ -38,7 +38,7 @@ pipeline {
     // }
     stage('SonarQube Analysis') {
       steps {
-        withSonarQubeEnv() {
+        withSonarQubeEnv(credentialsId: 'sonar_token') {
           sh "mvn clean verify sonar:sonar -Dsonar.projectKey=gs-rest-service"
         }
       }
