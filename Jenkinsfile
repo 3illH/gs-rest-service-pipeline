@@ -38,7 +38,7 @@ pipeline {
     // }
     stage('SonarQube Analysis') {
       steps {
-        withSonarQubeEnv(credentialsId: 'sonar_token') {
+        withSonarQubeEnv('Sonar') {
           sh "mvn clean verify sonar:sonar -Dsonar.projectKey=gs-rest-service"
         }
       }
@@ -56,9 +56,9 @@ pipeline {
     
     stage('Trivy Scan Container image') {
       steps {
-        FAILED_STAGE=env.STAGE_NAME
         container('trivy') {
           script {
+            FAILED_STAGE=env.STAGE_NAME
             sh "trivy image -f json -o trivy-results.json 3ill/gs-rest-service:0.0.2-SNAPSHOT"
           }
         }
