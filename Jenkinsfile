@@ -38,8 +38,10 @@ pipeline {
     // }
     stage('SonarQube Analysis') {
       steps {
-        withSonarQubeEnv('Sonar') {
-          sh "mvn clean verify sonar:sonar -Dsonar.projectKey=gs-rest-service"
+        container('maven') {
+          withSonarQubeEnv('Sonar') {
+            sh "mvn clean verify sonar:sonar -Dsonar.projectKey=gs-rest-service"
+          }
         }
       }
     }
