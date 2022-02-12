@@ -91,20 +91,20 @@ pipeline {
       }
     }
    }
-  post {
-    always {
-      // recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
-      // script{
-      //   def total = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL"}'
-      //   def news = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="NEW"}'
-      //   def totalHight = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL_HIGH"}'
-      //   def totalNormal = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL_NORMAL"}'
-      //   echo "TOTAL: " + total
-      //   echo "NEWS: " + news
-      //   echo "HIGH: " + totalHight
-      //   echo "NORMAL: " + totalNormal
-      // }
-      //recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
-    }
-  }
+  // post {
+  //   always {
+  //     recordIssues enabledForFailure: true, tool: trivy(pattern: 'trivy-results.json')
+  //     script{
+  //       def total = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL"}'
+  //       def news = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="NEW"}'
+  //       def totalHight = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL_HIGH"}'
+  //       def totalNormal = tm stringWithMacro: '${ANALYSIS_ISSUES_COUNT, tool="trivy", type="TOTAL_NORMAL"}'
+  //       echo "TOTAL: " + total
+  //       echo "NEWS: " + news
+  //       echo "HIGH: " + totalHight
+  //       echo "NORMAL: " + totalNormal
+  //     }
+  //     recordIssues enabledForFailure: true, tool: owaspDependencyCheck(pattern: 'target/dependency-check-report.json')
+  //   }
+  // }
 }
