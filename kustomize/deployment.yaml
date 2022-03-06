@@ -16,7 +16,7 @@ spec:
         app: gs-rest-service
     spec:
       containers:
-      - image: 3ill/gs-rest-service
+      - image: 3ill/gs-rest-service:0.0.2-SNAPSHOT
         name: gs-rest-service
         imagePullPolicy: Always
         ports:
