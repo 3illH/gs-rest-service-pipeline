@@ -16,17 +16,17 @@ spec:
   - name: docker-socket
     emptyDir: {}
   containers:
-  # - name: jnlp
-  #   env:
-  #   - name: CONTAINER_ENV_VAR
-  #     value: jnlp
-  #   resources:
-  #     limits:
-  #       cpu: 100m
-  #       memory: 200Mi
-  #     requests:
-  #       cpu: 50m
-  #       memory: 128Mi
+  - name: jnlp
+    env:
+    - name: CONTAINER_ENV_VAR
+      value: jnlp
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
   - name: maven
     image: maven:3.8.4-openjdk-11
     command: ['sleep', '60m']
