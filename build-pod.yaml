@@ -16,18 +16,6 @@ spec:
   - name: docker-socket
     emptyDir: {}
   containers:
-  - name: jnlp
-    image: jenkins/inbound-agent:4.13-1
-    env:
-    - name: CONTAINER_ENV_VAR
-      value: jnlp
-    resources:
-      limits:
-        cpu: 100m
-        memory: 200Mi
-      requests:
-        cpu: 50m
-        memory: 128Mi
   - name: maven
     image: maven:3.8.4-openjdk-11
     command: ['sleep', '60m']
