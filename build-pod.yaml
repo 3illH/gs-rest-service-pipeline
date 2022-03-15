@@ -17,6 +17,7 @@ spec:
     emptyDir: {}
   containers:
   - name: jnlp
+    image: jenkins/inbound-agent:4.13-1
     env:
     - name: CONTAINER_ENV_VAR
       value: jnlp
