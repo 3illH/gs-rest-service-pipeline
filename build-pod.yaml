@@ -15,9 +15,9 @@ spec:
       claimName: jenkins-m2-pv-claim
   - name: docker-socket
     emptyDir: {}
-  - name: docker-daemon-config
-    configMap:
-      name: harbor-dns-configmap
+  # - name: docker-daemon-config
+  #   configMap:
+  #     name: harbor-dns-configmap
   containers:
   - name: maven
     image: maven:3.8.4-openjdk-11
@@ -66,9 +66,9 @@ spec:
     volumeMounts:
     - name: docker-socket
       mountPath: /var/run
-    - name: docker-daemon-config
-      mountPath: /etc/docker/
-      readOnly: true
+    # - name: docker-daemon-config
+    #   mountPath: /etc/docker/
+    #   readOnly: true
   - name: argocd
     image: docker.io/3ill/argocd
     command: ['sleep', '60m']
