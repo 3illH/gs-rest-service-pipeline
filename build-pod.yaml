@@ -69,6 +69,9 @@ spec:
     volumeMounts:
     - name: docker-socket
       mountPath: /var/run
+    - name: docker-daemon-config
+      mountPath: /etc/docker/
+      readOnly: true
   - name: argocd
     image: docker.io/3ill/argocd
     command: ['sleep', '60m']
