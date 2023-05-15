@@ -1,6 +1,6 @@
 # kustomization.yaml contents
 resources:
-- deployment.yaml
+- rollout.yaml
 - service.yaml
 
 namespace: dev
