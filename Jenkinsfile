@@ -36,7 +36,12 @@ pipeline {
                         sh 'export'
                         sh 'java -version'
                         sh 'mvn -version'
-                        sh "mvn -f --batch-mode release:prepare -Dusername=${bitbucketUsername} -Dpassword=${bitbucketPassword}"
+                        withCredentials([usernamePassword(credentialsId: 'database-credentials', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
+                            //env.password = sh(returnStdout: true, script: 'echo $DB_PASSWORD').trim()
+                            //bitbucketPassword = env.DB_PASSWORD
+                            sh "mvn -f --batch-mode release:prepare -Dusername=${bitbucketUsername} -Dpassword=${DB_PASSWORD}"
+                        }
+                        
                     }
                 }
             }
