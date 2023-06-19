@@ -19,12 +19,13 @@ pipeline {
     }
     
     stages {
-     stage('Setup Database Credentials') {
-        steps {
-            script {
-                withCredentials([usernamePassword(credentialsId: 'database-credentials', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
-                    //env.password = sh(returnStdout: true, script: 'echo $DB_PASSWORD').trim()
-                    bitbucketPassword = env.DB_PASSWORD
+        stage('Setup Database Credentials') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'database-credentials', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
+                        //env.password = sh(returnStdout: true, script: 'echo $DB_PASSWORD').trim()
+                        bitbucketPassword = env.DB_PASSWORD
+                    }
                 }
             }
         }
