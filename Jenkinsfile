@@ -10,8 +10,7 @@
 
 // standardSharedLib(pipelineConfig)
 
-def bitbucketUsername = 'smk-jenkins'
-def bitbucketPassword = ''
+def bitbucketCredentials = 'database-credentials'
 
 pipeline {
     agent {
@@ -36,10 +35,10 @@ pipeline {
                         sh 'export'
                         sh 'java -version'
                         sh 'mvn -version'
-                        withCredentials([usernamePassword(credentialsId: 'database-credentials', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
+                        withCredentials([usernamePassword(credentialsId: bitbucketCredentials, passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
                             //env.password = sh(returnStdout: true, script: 'echo $DB_PASSWORD').trim()
                             //bitbucketPassword = env.DB_PASSWORD
-                            sh "mvn -f --batch-mode release:prepare -Dusername=${bitbucketUsername} -Dpassword=${DB_PASSWORD}"
+                            sh "mvn -f --batch-mode release:prepare -Dusername=${DB_USERNAME} -Dpassword=${DB_PASSWORD}"
                         }
                         
                     }
