@@ -13,9 +13,9 @@
 def bitbucketCredentials = 'database-credentials'
 
 pipeline {
-    // agent {
-    //     label 'mavenjenkinsagent'
-    // }
+    agent {
+        // label 'mavenjenkinsagent'
+    }
     
     stages {
         stage('Setup Database Credentials') {
