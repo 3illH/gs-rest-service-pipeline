@@ -13,14 +13,15 @@
 def bitbucketCredentials = 'database-credentials'
 
 pipeline {
-    agent {
-        label 'mavenjenkinsagent'
-    }
+    // agent {
+    //     label 'mavenjenkinsagent'
+    // }
     
     stages {
         stage('Setup Database Credentials') {
             steps {
                 script {
+                    echo "Current branch ${env.GIT_BRANCH}"
                     withCredentials([usernamePassword(credentialsId: 'database-credentials', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
                         //env.password = sh(returnStdout: true, script: 'echo $DB_PASSWORD').trim()
                         bitbucketPassword = env.DB_PASSWORD
