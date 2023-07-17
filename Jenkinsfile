@@ -59,3 +59,15 @@ pipeline {
         }
     }
 }
+
+def previousBuilds(branch) {
+    // Get all previous builds for the current job and the given branch
+    return Jenkins.instance.getItemByFullName(env.JOB_NAME).getBuilds().findAll { build ->
+        build.environment['BRANCH_NAME'] == branch
+    }
+}
+
+def shouldDiscardRun(previousRuns) {
+    // Check if there is a more recent run for the branch
+    return previousRuns.any { it.number < currentBuild.number }
+}
