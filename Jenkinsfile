@@ -22,7 +22,7 @@ pipeline {
         stage('Check Branch Indexing') {
             steps {
                 script {
-                    // if ( currentBuild.getBuildCauses().toString().contains('BranchIndexingCause')) {
+                    if ( currentBuild.getBuildCauses().toString().contains('BranchIndexingCause')) {
                         def currentBranch = env.BRANCH_NAME
                         def previousRuns = previousBuilds(currentBranch)
                         echo "previousRuns '${previousRuns}' "
@@ -35,7 +35,7 @@ pipeline {
                             // currentBuild.result = 'ABORTED'
                             // return
                         }
-                    // }
+                    }
                 }
             }
         }
