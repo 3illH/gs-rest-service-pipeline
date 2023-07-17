@@ -19,14 +19,24 @@ pipeline {
     // }
     
     stages {
-        stage('Setup Database Credentials') {
+        stage('Check Branch Indexing') {
             steps {
                 script {
-                    echo "Current branch ${env.GIT_BRANCH}"
-                    withCredentials([usernamePassword(credentialsId: 'database-credentials', passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
-                        //env.password = sh(returnStdout: true, script: 'echo $DB_PASSWORD').trim()
-                        bitbucketPassword = env.DB_PASSWORD
-                    }
+                    // if ( currentBuild.getBuildCauses().toString().contains('BranchIndexingCause')) {
+                        def currentBranch = env.BRANCH_NAME
+                        def previousRuns = previousBuilds(currentBranch)
+                        echo "previousRuns '${previousRuns}' "
+                        
+                        if (shouldDiscardRun(previousRuns)) {
+                            catchError(buildResult: 'ABORTED', stageResult: 'ABORTED') {
+                                echo "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
+                                sh "exit 1"
+                            }
+                            // echo "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
+                            // currentBuild.result = 'ABORTED'
+                            // return
+                        }
+                    // }
                 }
             }
         }
