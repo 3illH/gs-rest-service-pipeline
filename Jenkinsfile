@@ -28,12 +28,12 @@ pipeline {
                         echo "previousRuns '${previousRuns}' "
                         
                         if (shouldDiscardRun(previousRuns)) {
-                            catchError(buildResult: 'ABORTED', stageResult: 'ABORTED') {
-                                error "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
-                            }
-                            // echo "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
-                            // currentBuild.result = 'ABORTED'
-                            // return
+                            // catchError(buildResult: 'ABORTED', stageResult: 'ABORTED') {
+                            //     error "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
+                            // }
+                            print "INFO: Build skipped due to trigger being Branch Indexing"
+                            currentBuild.result = 'ABORTED'
+                            return
                         }
                     }
                 }
