@@ -31,9 +31,10 @@ pipeline {
                             // catchError(buildResult: 'ABORTED', stageResult: 'ABORTED') {
                             //     error "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
                             // }
-                            print "INFO: Build skipped due to trigger being Branch Indexing"
-                            currentBuild.result = 'ABORTED'
-                            return
+                            // print "INFO: Build skipped due to trigger being Branch Indexing"
+                            // currentBuild.result = 'ABORTED'
+                            // return
+                            abortCurrentBuild()
                         }
                     // }
                 }
@@ -69,4 +70,10 @@ def previousBuilds(branch) {
 def shouldDiscardRun(previousRuns) {
     // Check if there is a more recent run for the branch
     return previousRuns.any { it.number < currentBuild.number }
+}
+
+def abortCurrentBuild() {
+    print "INFO: Build skipped due to trigger being Branch Indexing"
+    currentBuild.result = 'ABORTED'
+    return
 }
