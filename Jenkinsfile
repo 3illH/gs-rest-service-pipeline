@@ -29,7 +29,7 @@ pipeline {
                         
                         if (shouldDiscardRun(previousRuns)) {
                             catchError(buildResult: 'ABORTED', stageResult: 'ABORTED') {
-                                echo "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
+                                error "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
                             }
                             // echo "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
                             // currentBuild.result = 'ABORTED'
