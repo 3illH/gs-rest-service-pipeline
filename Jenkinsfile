@@ -13,7 +13,7 @@
 def bitbucketCredentials = 'database-credentials'
 
 pipeline {
-    agent any
+    agent // any
     {
         label 'mavenjenkinsagent'
     }
