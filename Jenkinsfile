@@ -29,7 +29,7 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: bitbucketCredentials, passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USERNAME')]) {
                             //env.password = sh(returnStdout: true, script: 'echo $DB_PASSWORD').trim()
                             //bitbucketPassword = env.DB_PASSWORD
-                            sh "mvn -f --batch-mode release:prepare -Dusername=${DB_USERNAME} -Dpassword=${DB_PASSWORD}"
+                            sh "mvn clean compile"
                         }
                         
                     }
