@@ -14,32 +14,11 @@ def bitbucketCredentials = 'database-credentials'
 
 pipeline {
     agent any
-    // {
-    //     label 'mavenjenkinsagent'
-    // }
+    {
+        label 'mavenjenkinsagent'
+    }
     
     stages {
-        stage('Check Branch Indexing') {
-            steps {
-                script {
-                    // if ( currentBuild.getBuildCauses().toString().contains('BranchIndexingCause')) {
-                        def currentBranch = env.BRANCH_NAME
-                        def previousRuns = previousBuilds(currentBranch)
-                        echo "previousRuns '${previousRuns}' "
-                        
-                        if (shouldDiscardRun(previousRuns)) {
-                            // catchError(buildResult: 'ABORTED', stageResult: 'ABORTED') {
-                            //     error "Discarding current run for branch '${currentBranch}' in BranchIndexing as a more older run exists"
-                            // }
-                            // print "INFO: Build skipped due to trigger being Branch Indexing"
-                            // currentBuild.result = 'ABORTED'
-                            // return
-                            abortCurrentBuild()
-                        }
-                    // }
-                }
-            }
-        }
         stage('Build') {
             steps {
                 script {
